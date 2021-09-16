@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab 1 %
+% 9.9.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{User-Defined Functions}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{9/16/2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Lab 2  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Part 1}
+Summary: Using the numpy and matplotlib.pyplot packages, a function of y = cos(t) was created and plotted from 0\le t\le 10s.
+\\ \\y = cos(t):
+\\ \includegraphics[width=3in]{cos.PNG}
+\section{Part 2}
+Summary: First, an equation was created using step and ramp functions to model the function in figure 2. This equation came out to be: \\y(t) = r(t) - r(t-3) + 5u(t-3) - 2u(t-6) - 2r(t-6)
+\\ Once this equation was found, two functions were created in python. The first generated a step function and plotted it, and the other created a ramp function and plotted it. 
+\\ \\Step:
+\\ \includegraphics[width=3in]{step.PNG}
+\\ \\Ramp:
+\\ \includegraphics[width=3in]{ramp.PNG}
+\\ \\After creating functions for both ramp and step functions, they were able to be used to create the equation for figure 2. By combining the functions into one equation, the final plot was able to look identical to the figure 2 plot.
+\\ \\User-Generated Figure 2 Plot:
+\\ \includegraphics[width=3in]{fig2.PNG}
+
+\section{Part 3}
+Summary: Using the function for figure 2, a few changes were made a plotted. First, a time reversal was done which resulted in the following graph:
+\\
+\\Next, two time shift operations were performed, f(t-4) and f(-t-4), which resulted in the following two graphs:
+\\ \\f(t-4):
+\\ \includegraphics[width=3in]{t-4.PNG}
+\\ \\f(-t-4):
+\\ \includegraphics[width=3in]{-t-4.PNG}
+\\Following this, two time scale operations were done, f(t/2) and f(2t), which resulted in the following two plots:
+\\ \\f(t/2):
+\\ \includegraphics[width=3in]{halft.PNG}
+\\ \\f(2t):
+\\ \includegraphics[width=3in]{2t.PNG}
+\\Finally, a hand plot of the derivative of figure 2 was drawn, as well as a plot of the derivative generated in python using the numpy.diff() function.
+\\ \\Hand Drawn:
+\\ \includegraphics[width=3in]{lab2.jpg}
+\\ \\Python Derivative:
+\\ \includegraphics[width=3in]{diff.PNG}
+
+\section{Questions}
+\textbf{1. Are the plots from Part 3 Task 4 and Part 3 Task 5 identical? Is it possible for them to
+match? Explain why or why not.}
+\\The graphs are not the same. It would be possible for them to match if the step size was increased, but currently, the step size makes it so there are only 15 intervals measured which causes inaccurate jumps.
+
+\\ \\ \textbf{2. How does the correlation between the two plots (from Part 3 Task 4 and Part 3 Task 5)
+change if you were to change the step size within the time variable in Task 5? Explain why
+this happens.}
+\\As the step size increases, the accuracy of the derivative plot increases because the number of points where the slope of the fig. 2 function is measured would increase. This would lead to a more accurate representation of the derivative plot which would more closely match the hand drawn plot.
+
+\\ \\ \textbf{3. Leave any feedback on the clarity of the expectations, instructions, and deliverables.}
+\\The labs clarity was good and I found myself understanding what was expected of me to complete. The only struggle was with part 3 Task 5. I struggled to generate the plot of the derivative using numpy.diff() function and to find the documentation for it.
+
+\end{document}
