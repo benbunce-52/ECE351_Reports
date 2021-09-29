@@ -1,0 +1,140 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab 4 %
+% 9.27.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{System Step Response Using Convolution}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{9/30/2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Lab 4  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+Using the step function generated in the lab 2, three functions were created and plotted. This lab then focused on the convolution of these functions using a function made in lab 3 and also by hand and using the convolution integral.
+
+\section{Equations}
+The three functions made using the step function are as follows:
+\\
+\\$h_1(t) = e^{-2t}[u(t) - u(t-3)]$
+\\
+\\$h_2(t) = u(t-2) - u(t-6)$
+\\
+\\$h_3(t) = cos(w_0t)u(t)$
+\\
+\\{Convolution of h_1(t):}
+\\$ \int e^{-2(t-T)}[u(t-T) - u(t-T-3)]u(t)dT \xrightarrow{}
+\\ \boldsymbol{ 0.5[1-e^{-2t}]u(t) - 0.5[1-e^{-2(t-3)}]u(t-3)}$
+\\
+\\{Convolution of h_2(t):}
+\\ $$\int u(t-T-2)u(T)dT - \int u(t-T-6)u(T)dT \xrightarrow{}
+\\ \boldsymbol{ (t+2)u(t-2) - (t+6)u(t-6)}$
+\\
+\\{Convolution of h_3(t):}
+\\ $$\int cos(0.5\pi (t-T))dT \xrightarrow{}
+\\ \boldsymbol{ (2/\pi)(sin(0.5\pi t)u(t)}$
+\\
+
+\section{Methodology}
+Using the step function from lab two, the above equations were created. These equations were then plotted on a single plot using separate subplots.
+
+Next, using the convolution function from lab 3, the three functions were each convolved with the step function to produce three separate convolution plots. Finally, using the convolution integral, the convolution equations of the three functions above were found. These three new functions were each plotted and compared to the plots of the lab 3 convolution function.
+
+\section{Results}
+3 Base Functions:
+\\ \includegraphics[width=3in]{func.png}
+\\
+\\ Lab 3 Function Generated Convolutions:
+\\ \includegraphics[width=3in]{conv_comp.PNG}
+\\
+\\ Convolution Integral Functions:
+\\ \includegraphics[width=3in]{conv_handmade.PNG}
+
+
+\section{Conclusion}
+In this lab, I learned how to use various python functions to build a convolution function that will work for a variety of different equations. By myself, it was difficult to come up with an approach to this problem, but when I worked with other classmates, and ultimately when we were shown a convolution function, I was able to fully understand how to create the function.
+
+
+\end{document}
+
