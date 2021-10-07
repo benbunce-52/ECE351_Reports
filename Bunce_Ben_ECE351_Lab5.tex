@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab 5 %
+% 9.30.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Step and Impulse Response of a RLC Band Pass Filter}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{9/30/2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Lab 5  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+Using Python, the impulse response and s-domain transfer function for an RLC circuit were plotted. These functions were used to plot the step response of the transfer function, as well as demonstrate the final value theorem.
+
+\section{Equations}
+\\
+\\$h(t) = 10000*e^{-5000t}*cos(18584t) - 2690.5*e^{-5000t}*sin(18584t)$
+\\
+\\$H(s) = \frac{10000s}{s^2+10000s+370370370}$
+\\
+
+\section{Methodology}
+First, in the prelab, a step response H(s) and a impulse response h(t) were found for a given RLC circuit. The impulse response was then plotted from $0\leq t \leq 1.2ms$. Next, the 'scipy.signal.impulse()' function was used to plot the transfer function H(s) on the same plot as the impulse response. 
+\\ \\Next, the step response of H(s) was found and plotted using the 'scipy.signal.step()' function on a range of $0\leq t \leq 1.2ms$. Finally, the final value theorem was performed to the step response H(s)u(s) in the Laplace domain.
+
+\section{Results}
+Impulse and Transfer Function:
+\\ \includegraphics[width=3in]{imptran.PNG}
+\\
+\\ Step Response:
+\\ \includegraphics[width=3in]{step.PNG}
+
+\\ \\Final Value Theorem: 
+\\
+\\$\lim\limits_{s \to 0} (\frac{10000s^2}{s^2+10000s+370370370}) = 0$
+
+\section{Questions}
+\textbf{1. Compare your result to the plot in Part 1 Task 2 and discuss whether your result makes
+sense.}
+\\ \\The results of the final value theorem make sense because the final value was 0 and as seen in Part 1 Task 2 plot, the graph stabilizes at 0.
+\\ \\ \textbf{2. Explain the result of the Final Value Theorem from Part 2 Task 2 in terms of the physical circuit components.}
+\\ \\As time progresses from 0, the circuit stabilizes out and the filter works as expected. When it first starts however, the components are all drained of any stored charge so initially a large amount of energy is brought in to charge the capacitor and inductor but then shortly after the circuit stabilizes.
+
+
+\section{Conclusion}
+In this lab, various new Python functions were used to find the Laplace transforms and step functions. These functions were very powerful in generating the functions when compared to generating them by hand. The impulse response and transfer function plots ended up turning out identical and the step response plot turned out as expected.
+
+
+\end{document}
+
+
