@@ -13,4 +13,6 @@ Contained in Repository:
 8. ECE351 Lab 3 Report (TEX)
 9. ECE351 Lab 4 Report (PDF)
 10. ECE351 Lab 4 Report (TEX)
+11. ECE351 Lab 5 Report (PDF)
+12. ECE351 Lab 5 Report (TEX)
 
