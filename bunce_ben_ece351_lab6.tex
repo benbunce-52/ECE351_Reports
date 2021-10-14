@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab 5 %
+% 9.30.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Partial Fraction Expansion}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{10/14/2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Lab 6  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+Using Python, the step response of the prelab is plotted using scipy and partial fraction was performed using the residue function.
+
+\section{Equations}
+\\Part 1:
+\\
+\\$y"(t)+10y'(t)+24y(t)=x"(t)+6x'(t)+12x(t)$
+\\
+\\$H(s) = 1+ \frac{-4s-12}{s^2+10s+24}$
+\\
+\\$y(t)=(0.5+0.5e^{-4t}-e^{-6t})u(t)$
+\\
+\\Part 2:
+\\
+\\$y^{(5)}(t)+18y^{(4)}(t)+218y^{(3)}(t)+2036y^{(2)}(t)+9085y^{(1)}(t)+25250y(t) = 25250x(t)$
+\\
+\\$y(t) = -4.38e^{-1.46t}cos(-4.13t-70.5) + -4.38e^{-1.46t}cos(-4.13t+70.5) + 2.15e^{-10t} + 1.05e^{-0.38t}cos(1.05t+111.2) + 1.05e^{-0.38t}cos(1.05t-111.2)
+
+\section{Methodology}
+First, the step response from the prelab was plotted from $0\leq t\leq 2s$. Next, using the step function, the step response of H(s) function was plotted. Finally, the partial fraction expansion of Y(s) was found using the residue function.
+
+Next, using the residue function, the partial fraction expansion of the equation given in part 2 was found. Using the cosine method, y(t) was found and plotted from $0 \leq t \leq 4.5s$. Then, using the step function, the same function was plotted and compared to the previous plot.
+
+
+
+\section{Results}
+Part 1 Plots:
+\\
+\\ \includegraphics[width=3in]{task1.PNG}
+\\
+\\Part 2 Plots:
+\\
+\\ \includegraphics[width=3in]{task2.PNG}
+\\Code:
+\\
+\\ \includegraphics[width=3in]{code.PNG}
+\\
+\\Partial Fraction Expansion (Residue) Results:
+\\
+\\ \includegraphics[width=3in]{results.PNG}
+
+\section{Questions}
+\textbf{1.For a non-complex pole-residue term, you can still use the cosine method, explain why this
+works.}
+\\ \\For a non-complex number, there is no non-real terms, so w is 0 and the angle of k is 0, so cosine becomes 1 leaving just $ke^{at}$, which are all real values.
+
+\section{Conclusion}
+In this lab, the residue function was used to find the partial fraction expansion of functions that would be difficult to break down by hand. This was powerful in breaking down the plot in part 2 so that the cosine method could be used. While my part 1 plots turned out identical as expected, this was not the case with my part 2 plots. Despite breaking down the python code as best as I could, the part 2 plots were still unable to match, with the general shape of the hand calculated one being the same, but with it being stretched out far more then it should be.
+
+
+\end{document}
+
+
