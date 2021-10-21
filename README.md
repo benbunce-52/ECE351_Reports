@@ -17,3 +17,5 @@ Contained in Repository:
 12. ECE351 Lab 5 Report (TEX)
 13. ECE351 Lab 6 Report (PDF)
 14. ECE351 Lab 6 Report (TEX)
+15. ECE351 Lab 7 Report (PDF)
+16. ECE351 Lab 7 Report (TEX)
