@@ -1,0 +1,178 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab 7 %
+% 9.30.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Block Diagrams and System Stability}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{10/21/2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Lab 7  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+Using python, analysis of closed loop and open loop block diagrams is performed and compared to the analysis done by hand.
+
+\section{Equations}
+\\$G(s) = \frac{s+9}{(s^2-6s-16)(s+4)}$
+\\
+\\$A(s) = \frac{s+4}{s^2+4s+3}$
+\\
+\\$B(s)= s^2+26s+168$
+\\
+\\ Part 1:
+\\
+\\ $G(s) = \frac{s+9}{(s-8)(s+2)(s+4)}$
+\\
+\\ $A(s) = \frac{s+4}{(s+3)(s+1)}$
+\\
+\\ $B(s) = (S+14)(s+12)$
+\\
+\\Transfer Function:
+\\ $H(s) = \frac{s+9}{(s-1)(s+2)(s+37)(s+82)(s+48)}$
+\\
+\\Part 2:
+\\
+\\$H(s) = \frac{numG*numA}{denA*denG + denA*numB*numG}$
+\\
+\\ $H(s) = \frac{(s+1)(s+13)(s+36)}{(s+2)(s+41)(s+500)(s+2995)(s+6878)(s+4344)}$
+
+
+\section{Methodology}
+First, the poles and zeros of each function given were found by hand, and then compared to the poles and zeros found using the 'tf2zpk' function from the Scipy library. Using the factored equations found from the poles and zeros, the open-loop transfer function of the block diagram was found. The step response to the open-loop transfer function was then plotted using the 'convolve' function and plot. 
+\\ \\Next, the closed-loop transfer function for the block diagram was found symbolically. Then, using the 'convolve' and 'tf2zpk' functions, the numerical values for the numerator and denominator were found, resulting in a complete transfer function. Using the step function, this closed-loop transfer function was then plotted.
+
+
+
+\section{Results}
+Part 1 Plot:
+\\
+\\ \includegraphics[width=3in]{P1.PNG}
+\\
+\\ Part 1 Factored:
+\\
+\\ \includegraphics[width=3in]{P1Results.PNG}
+\\
+\\Part 2 Plot:
+\\
+\\ \includegraphics[width=3in]{P2.PNG}
+
+
+\section{Questions}
+
+From Part 1 and Part 2:
+
+\textbf{1.Considering the expression found in Task 3, is the open-loop response stable? Explain why or why not..}
+\\ \\The transfer function in part 1 is unstable because it has a negative roots, which will lead to a positive exponent cause the function to go to infinity. 
+
+\\ \\ \textbf{2. Does your result from Task 5 support your answer from Task 4? Explain how.}
+\\ \\ The plot supports the previous answer. In the plot, the function goes off to infinity, making it unstable, as described in the previous answer. 
+
+\\ \\\textbf{3. Using the closed-loop transfer function from Task 1, is the closed-loop response stable? Explain why or why not.}
+\\ \\The transfer function in part 1 is stable because it has a all positive roots, which will lead to all negative exponents causing the function to go to 0.
+
+\\ \\ \textbf{4. Does your result from Task 4 support your answer from Task3? Explain how.}
+\\ \\ The plot supports the previous answer. In the plot, the function goes to 0, making it stable, as described in the previous answer.
+
+\\ From Questions:
+
+\\ \\ \textbf{1. In Part 1 Task 5, why does convolving the factored terms using scipy.signal.convolve() result in the expanded form of the numerator and denominator? Would this work with your user-defined convolution function from Lab 3? Why or why not?}
+\\ \\ In Laplace domain, convolution becomes multiplication, so the convolution of the Laplace domain equations of the transfer function get multiplied together. This would not work with my user-defined transfer function as it does not just simply multiply the functions.
+
+\\ \\ \textbf{2. Discuss the difference between the open- and closed-loop systems from Part 1 and Part 2. How does stability differ for each case, and why?}
+\\ \\The closed-loop system is stable, and the open-loop system is not stable, since = the closed system goes to 0 and the open system goes to infinity. This is because the open system continues to grow exponentially from the inputs whereas the closed system takes the inputs and has feedback that causes it to not grow exponentially from the inputs and instead go to 0.
+
+\\ \\ \textbf{3. What is the difference between scipy.signal.residue() used in Lab 6 and scipy.signal.tf2zpk() used in this lab?}
+\\ \\The residue function performs the partial fraction expansion of a function and returns the residue and poles of the function, whereas the tf2zpk function returns the zero and pole of a linear filter function.
+
+\\ \\ \textbf{4. Is it possible for an open-loop system to be stable? What about for a closed-loop system to be unstable? Explain how or how not for each.}
+\\ \\It is possible for an open system to be stable if one of the functions in it has zeros such that when it is convolved with the other function in the system it produces a transfer function that has no negative roots. It is also possible for a closed system to be unstable if one of the functions being used in the system, when convolved with the others, causes the resulting transfer function to have a negative root leading to a positive exponent value.
+
+\section{Conclusion}
+In this lab, python was used to solve for the transfer functions of various systems and then plotting the step response to these transfer functions. In the end, the plots turned out as expected for both the closed and open loop systems, with the open system being unstable and the closed system being stable. 
+
+
+\end{document}
+
+
