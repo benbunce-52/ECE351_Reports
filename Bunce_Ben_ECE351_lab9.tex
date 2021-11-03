@@ -1,0 +1,164 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab 9 %
+% 11.4.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Fast Fourier Transform}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{11/4/2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Lab 9  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+Using the fast Fourier transform function in python, a variety of different plots are generated for three different functions.
+
+\section{Equations}
+\\1. $cos(2\pi t)$
+\\
+\\2. $5sin(2\pi t)$
+\\
+\\3. $2cos((2\pi * 2t) - 2) + sin^2(2\pi * 6t) + 3)$
+\\
+\\5. $x(t) = \sum_{n=1}^{\infty} [\frac{2(1-cos(\pi k))sin(kwt)}{\pi k}]$
+
+
+
+\section{Methodology}
+First, $cos(2\pi t)$ is plotted from $0\leq t\leq 2s$. Next, in the same window, the plots of the magnitude and phase of the function are plotted using the fast Fourier transform function, with a sampling frequency of 100. Next, zoomed in plots of the magnitude and phase are also displayed in the same window on separate plots.
+\\
+\\This process is then repeated for $5sin(2\pi t)$ and $2cos((2\pi * 2t) - 2) + sin^2(2\pi * 6t) + 3)$.
+\\
+\\Next, the previous procedure is redone, but where $Xmag<1e-10$, Xmag is set to 0. 
+\\
+\\Finally, using the function from lab 8, the fast Fourier transform function is ran for the square wave. This is done using $N=15$ and $0\leq t\leq 16s$.
+
+
+
+\section{Results}
+Task 1 Output:
+\\
+\\ \includegraphics[width=3in]{t1.PNG}
+\\
+\\ Task 2 Output:
+\\
+\\ \includegraphics[width=3in]{t2.PNG}
+\\
+\\ Task 3 Output:
+\\
+\\ \includegraphics[width=3in]{t3.PNG}
+\\
+\\ Task 4 Outputs:
+\\
+\\ \includegraphics[width=3in]{t4t1.PNG}
+\\
+\\ \includegraphics[width=3in]{t4t2.PNG}
+\\
+\\ \includegraphics[width=3in]{t4t3.PNG}
+\\
+\\ Task 5 Output:
+\\
+\\ \includegraphics[width=3in]{t5.PNG}
+
+
+\section{Questions}
+
+\textbf{1. What happens if fs is lower? If it is higher? fs in your report must span a few orders of magnitude.}
+\\If fs is lowered, then the plots become more compressed, as a smaller fs value means a smaller frequency which leads to the outputs being more frequent. In the opposite direction, as fs gets larger, the plots become more expanded as a larger fs value means a larger frequency which leads the outputs to be less frequent.
+\\
+\\ \textbf{2. What difference does eliminating the small phase magnitudes make?}
+\\ Eliminating the small phase magnitudes removes most of the clutter and distracting values, leaving only the important values, which makes it easier to read and understand.
+\\
+\\ \textbf{3. Verify your results from Tasks 1 and 2 using the Fourier transforms of cosine and sine. Explain why your results are correct. You will need the transforms in terms of Hz, not rad/s.}
+\\ $cos(2\pi t) \rightarrow \frac{\pi}{2}[\delta (Hz + 1) + \delta (Hz - 1)]$
+\\ The Fourier transform of task 1 equation has two delta functions at 1 and -1, which is shown in the plot of task 1 where there are two peaks at 1 and -1.
+\\ $5sin(2\pi t) \rightarrow  \frac{5j\pi}{2}[\delta (Hz + 1) - \delta (Hz - 1)]$
+\\ The Fourier transform of task 2 equation has two delta functions at 1 and -1, which is shown in the plot of task 2 where there are two peaks at 1 and -1.
+\section{Conclusion}
+In this lab, the fast Fourier functions were used to create plots from three different functions. These functions were very useful in further helping my understanding of Fourier transforms and functions in python that can be used for Fourier transforms. Overall, the results turned out well, with the plots looking how they should.
+
+
+\end{document}
+
+
