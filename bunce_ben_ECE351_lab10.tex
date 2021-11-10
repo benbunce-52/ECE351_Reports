@@ -1,0 +1,152 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab 10 %
+% 11.11.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Frequency Response}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{11/11/2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Lab 10  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+Using various tools in Python, the frequency response is found and Bode plots are generated of a given function.
+
+\section{Equations}
+\\1. $H(S)=\frac{s\frac{1}{RC}}{s^2+s\frac{1}{RC}+\frac{1}{LC}}$
+\\
+\\2. $x(t) = cos(2\pi * 100t) + cos(2\pi *3024t)+sin(2\pi * 50000t)$
+
+
+\section{Methodology}
+First, the expression found in the prelab is created in Python. Using this expression, the magnitude and phase of the transfer function are plotted. This is done with the ',atplotlib.pyplot.semilogx()' function. Next, the 'sig.bode()' function is used to plot the magnitude and phase freguency response for the transfer function. Finally, using the 'con.bode()' function, the frequency response is again plotted; however, this time in Hz.
+\\
+\\For the next part, the second equation is plotted from $0\leq t\leq 0.01s$. Next, using the 'sig.bilinear()' function, the equation is transformed into its z-domain equivalent. Then, using the 'sig.lfilter()' function, this new equation is passed through the part 1 filter. Finally, the result of passing this function through the filter is plotted.
+
+
+
+\section{Results}
+Part 1
+\\Task 1 Output:
+\\
+\\ \includegraphics[width=3in]{task1.PNG}
+\\
+\\ Task 2 Output:
+\\
+\\ \includegraphics[width=3in]{task2mag.png}
+\\ \includegraphics[width=3in]{task2phase.png}
+\\
+\\ Task 3 Output:
+\\
+\\ \includegraphics[width=3in]{conBode.png}
+\\
+\\ Part 2
+\\Task 1 Output:
+\\ 
+\\ \includegraphics[width=3in]{p2x.png}
+\\
+\\ Task 4 Output:
+\\
+\\ \includegraphics[width=3in]{p2y.png}
+
+
+\section{Questions}
+
+\textbf{1. Explain how the filter and filtered output in Part 2 makes sense given the Bode plots from Part 1. Discuss how the filter modifies specific frequency bands, in Hz.}
+\\The filters magnitude curve is opposite the curve of the x(t) function, so when the x(t) function passes through the function, the filtered output comes out flat. The filter modifies the specific frequency bands by changing the magnitude and phase of the function passing through.
+\\
+\\ \textbf{2. Discuss the purpose and workings of scipy.signal.bilinear() and scipy.signal.lfilter().}
+\\ The bilinear function takes two arrays, a numerator and a denominator, of an analog filter transfer function, performs a transform from the s-domain to the z-domain, and returns the numerator and denominator of the digital filter.
+\\The lfilter function takes three arrays, the numerator and denomintor of a digital filter function, and an array of inputs, such as what is returned by the bilinear function. The array of inputs is then passed through the filter and an array is returned which is made up of the values from passing the input through the filter. 
+\\
+\\ \textbf{3. What happens if you use a different sampling frequency in scipy.signal.bilinear() than you used for the time-domain signal?}
+\\ When a lower sampling frequency is used, the resulting plot becomes more compact and dense, and when a higher sampling frequency is used, the plot becomes more spread and less dense.
+\section{Conclusion}
+In this lab, various functions were used to create Bode plots and describe the frequency response to a transfer function. Other functions were also used to pass a given function through the filter described by the transfer function and plot the results. These functions of Python proved vary powerful at handling large functions with ease, and produced accurate Bode plots.
+
+
+\end{document}
+
+
