@@ -1,0 +1,189 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Ben Bunce %
+% ECE351 - 52 %
+% Lab Final %
+% 12.9.2021 %
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Filter Design}								
+% Title
+\author{Ben Bunce}						
+% Author
+\date{12.9.2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section 52}\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Final Project  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Ben Bunce  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+Using tools Python tools learned throughout the semester, a filter is created that takes in a signal from an aircraft positioning system, and outputs a clean signal after filtering. The signal from the aircraft positioning system contains great amounts of noise that causes problems with understanding the actual data, and that noise needs filtered out.
+
+\section{Equations}
+\subsection{Transfer Function}
+\\$H(s) = \frac{1256.6s}{s^2+1256.6s+1579043.6}$
+\subsection{Transfer function (RLC)}
+\\$H(s) = \frac{s\frac{R}{L}}{s^2+s\frac{R}{L}+\frac{1}{LC}}$
+\\ \\$R = 1000$
+\\ \\$L = 795.8mH$
+\\ \\$C = 795.8nF$
+\\ \\$B = \frac{R}{L} = 200Hz = 400\pi rad/s$
+\\ \\$w_o^2 = \frac{1}{LC}$
+
+
+\section{Methodology}
+First, the signal is read into an array using the 'read\textunderscore csv' function. Once this function has been moved into an array, the FFT function is used to create the plots of the Fourier transform. This is done for the full range of frequencies, as well as plots of 0-1780Hz, 2010-100000Hz, and 1800-2000Hz.
+\\ \\Next, a bandpass filter is developed that meets the following requirements:
+\\ \\• Allows 1800-2000Hz
+\\• The position measurement information is attenuated by less than -0.3dB
+\\• The low-frequency vibration noise must be attenuated by at least -30dB
+\\• The switching amplifier noise must be attenuated by at least -21dB
+\\• All noise that exists at frequencies greater than 100kHz must be completely attenuated
+\\ \\Once the filter is created, Bode plots are generated for a variety of frequency ranges. These are the full range, 0-1780Hz, 2010-100000Hz, and 1800-2000Hz. The signal is then passed through the filter using the 'bilinear' and 'lfilter' function. This output is then plotted.
+\\Finally, the FFT function is used to create the plots of the filtered Fourier transform. This is done for the full range of frequencies, as well as plots of 0-1780Hz, 2010-100000Hz, and 1800-2000Hz.
+
+\section{Circuit}
+$R = 1000$
+\\ \\$L = 795.8mH$
+\\ \\$C = 795.8nF$
+\\ \includegraphics[width=4in]{circuit.png}
+
+\section{Results}
+
+\subsection{Input}
+    \includegraphics[width=4in]{Input.png}
+    \\Unchanged signal received from aircraft positioning sensor.
+
+\subsection{Output}
+    \includegraphics[width=4in]{output.png}
+    \\The output signal provided by the filter shows a very clean result compared to the noisy input signal. This signal has clean lines without the excess clutter that is seen in the noisy input signal, and is centered around a straight zero line, compared to the noisy input, which follows a sine curve.
+
+\subsection{Filter Bode Plots}
+    \includegraphics[width=3in]{bodefull.png}
+    \\The above Bode plot shows the full range of frequencies and the effects of the filter on the frequencies.
+    \\ \\
+    \includegraphics[width=3in]{bode0_1780.png}
+    \\As seen in the Bode plot above, all low frequency values (less than 100Hz) are attenuated by at least -30dB. This effectively cancels out the low frequency vibrations from the buildings ventilation system.
+    \\ \\
+    \includegraphics[width=3in]{bode2010_100000.png}
+    \\As seen in the Bode plot above, the high frequencies are attenuated by at least -25dB (frequencies greater than 10KHz). This effectively cancels out the high frequency noise from the shared ground.
+    \\ \\
+    \includegraphics[width=3in]{bode1800_2000.png}
+    \\As seen in the Bode plot above, the frequencies between 1800Hz and 2000Hz and negligibly attenuated. This attenuation is less than the -0.3dB minimum of the filter, which effectively allows all frequencies between 1800Hz and 2000Hz through.
+
+\subsection{FFT Plots (Filtered and Unfiltered)}
+    \includegraphics[width=3in]{FFTfullU.png}
+    \includegraphics[width=3in]{FFTfull.png}
+    \\As seen in the comparison between the unfiltered (right), and filtered (left) plots, the amplitudes outside of the ideal range have been almost entirely attenuated. 
+    \\ \\
+    \includegraphics[width=3in]{FFT0_1780u.png}
+    \includegraphics[width=3in]{FFT0_1780.png}
+    \\As seen in the comparison between the unfiltered (right), and filtered (left) plots, the low frequency spike has been almost completely attenuated from the signal, resulting in a clean output from the filter without the initial spike. 
+    \\ \\
+    \includegraphics[width=3in]{FFT2010_100000U.png}
+    \includegraphics[width=3in]{FFT2010_100000.png}
+    \\As seen in the comparison between the unfiltered (right), and filtered (left) plots, the high frequency amplitudes have been almost completely attenuated, with all values sitting below 0.05v. This provides a clean output from the filter in the high frequency domain.
+    \\ \\
+    \includegraphics[width=3in]{FFT1800_2000U.png}
+    \includegraphics[width=3in]{FFT1800_2000.png}
+    \\As seen in the comparison between the unfiltered (right), and filtered (left) plots, the values ranging from 1800Hz to 2000Hz have been minimally impacted when passed through the filter. There is no noticeable change between the input and output values which demonstrates the filter very little effect on the important values.
+
+
+\section{Questions}
+
+\textbf{Earlier this semester, you were asked what you personally wanted to get out of taking this course. Do you feel like that personal goal was met? Why or why not?}
+\\
+\\I feel this class exceeded my expectations of what I was expecting. I found the labs to be useful in improving my understanding of math functions in Python and the capabilities that Python has in the electrical engineering field.
+
+\section{Conclusion}
+In this project, a noisy signal is recieved from an aircraft positioning system. This noisy signal is then passed through an RLC circuit, which provides a bandpass filter that only allows frequencies of 1800-2000Hz. This output signal meets a variety of criteria for the attenuation from the filter, and provides a clean signal that is usable in further processes. The output signal generated in this project proved to be a very clean filtering of the input signal provided. 
+
+\section{Appendix}
+\subsection{.stem() Workaround}
+\begin{verbatim}
+def make_stem ( ax ,x ,y , color =’k’, style =’solid ’, label =’’,linewidths =2.5 ,** kwargs ) :
+    ax . axhline ( x [0] , x [ -1] ,0 , color =’r’)
+    ax . vlines (x , 0 ,y , color = color , linestyles = style , label = label , linewidths =
+    linewidths )
+    ax . set_ylim ([1.05* y . min () , 1.05* y . max () ])
+
+\end{verbatim}
+
+\end{document}
+
+
